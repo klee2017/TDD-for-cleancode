@@ -1,6 +1,7 @@
 import unittest
 
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 
 
 class NewVisitorTest(unittest.TestCase):
@@ -17,18 +18,36 @@ class NewVisitorTest(unittest.TestCase):
 
         # 'To-Do' has written on title and header.
         self.assertIn('To-Do', self.browser.title)
-        self.fail('Finish the test!')
+        header_text = self.browser.find_element_by_tag_name('h1').text
+        self.assertIn('To-Do', self.header_text)
 
-if __name__ == '__main__':
-    unittest.main(warnings='ignore')
-
-
+        # work is added
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        self.assertEqual(
+            inputbox.get_attribute('placeholder'),
+            'working item insert'
+        )
 
         # when you want to add "buy feathers" on the list,
-
         # you can write it on the textbox.
+        inputbox.send_keys('buy feather')
 
         # when you push enter key,
         # page is updated and "1: buy feathers" is written on the list.
+        inputbox.send_keys(Keys.ENTER)
+
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertTrue(
+            any(row.text == '1: buy feather' for row in rows),
+        )
 
         # And there is additional textbox to insert additional item.
+        # add 'make fishnet using feather'.
+        self.fail('Finish the test!')
+
+        # page is updated and two item appears on the list.
+
+
+if __name__ == '__main__':
+    unittest.main(warnings='ignore')
