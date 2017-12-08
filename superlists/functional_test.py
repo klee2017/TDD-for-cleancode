@@ -26,7 +26,7 @@ class NewVisitorTest(unittest.TestCase):
         inputbox = self.browser.find_element_by_id('id_new_item')
         self.assertEqual(
             inputbox.get_attribute('placeholder'),
-            'inserting working item'
+            'insert working item'
         )
 
         # when you want to add "buy feathers" on the list,
