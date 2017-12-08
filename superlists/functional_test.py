@@ -41,6 +41,7 @@ class NewVisitorTest(unittest.TestCase):
         rows = table.find_elements_by_tag_name('tr')
         self.assertTrue(
             any(row.text == '1: buying feather' for row in rows),
+            "new to-do item did not appear in table."
         )
 
         # And there is additional textbox to insert additional item.
